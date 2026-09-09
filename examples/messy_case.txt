@@ -1,0 +1,7 @@
+Client needs a software prototype by Friday.
+They sent requirements in two emails and one meeting note.
+Authentication isn't finished.
+Sam owns the API.
+The deployment depends on the API.
+The client changed requirement #4 yesterday.
+We don't know whether the new requirement may invalidate the existing database schema.
