@@ -1,0 +1,8 @@
+schema: ghost-atlas.hypernet.node/v1
+repository: Atlas-Ascend/MAAT-Universal-CaseGraph
+lifecycle: active
+plane: casegraph-reasoning
+role: universal-casegraph-and-structured-problem-graph-provider
+hypernets: [github, render, neon, software, cloud]
+parent_cognition: Atlas-Mind-LLM
+routing: {authorization: Janus-Prime, io: Crowngrid, discovery: Estate-Service-Catalog-Capability-Registry, transport: Ghost-Atlas-Estate-Service-Mesh-Runtime-Connectivity-Fabric, events: Ghost-Atlas-Estate-Event-Gateway, observability: Ghost-Atlas-Runtime-Observatory, quality: SECA}
