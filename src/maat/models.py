@@ -43,26 +43,30 @@ class CaseEdge(BaseModel):
 class Finding(BaseModel):
     kind: Literal["risk", "evidence_gap", "contradiction", "blocker"]
     summary: str
-    node_ids: list[str] = []
+    node_ids: list[str] = Field(default_factory=list)
 
 
 class Action(BaseModel):
     title: str
     rationale: str
-    node_ids: list[str] = []
+    node_ids: list[str] = Field(default_factory=list)
     priority: int = 1
 
 
 class CaseGraph(BaseModel):
-    nodes: list[CaseNode] = []
-    edges: list[CaseEdge] = []
-    findings: list[Finding] = []
-    actions: list[Action] = []
+    nodes: list[CaseNode] = Field(default_factory=list)
+    edges: list[CaseEdge] = Field(default_factory=list)
+    findings: list[Finding] = Field(default_factory=list)
+    actions: list[Action] = Field(default_factory=list)
 
 
 class ProofReceipt(BaseModel):
     status: Literal["PASS", "FAIL", "UNVERIFIED"]
+    verification_scope: Literal["case_reconstruction"] = "case_reconstruction"
+    run_id: str
     input_sha256: str
     graph_node_ids: list[str]
     selected_action: Action | None = None
-    evidence: list[str] = []
+    evidence: list[str] = Field(default_factory=list)
+    verification_errors: list[str] = Field(default_factory=list)
+    pipeline_stages: list[str] = Field(default_factory=list)

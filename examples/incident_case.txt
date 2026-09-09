@@ -1,0 +1,4 @@
+The checkout service failed during the morning release.
+The root cause is unknown.
+Checkout depends on the payment API.
+The team needs to verify database connections before redeploying.
