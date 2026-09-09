@@ -7,13 +7,47 @@
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
-  <main>
-    <header><span>MAAT // UNIVERSAL CASEGRAPH</span><strong>TURN CHAOS INTO AN EXECUTABLE CASE</strong></header>
-    <section class="grid">
-      <article><h1>Case Input</h1><textarea id="input">Client needs a software prototype by Friday.\nAuthentication isn't finished.\nSam owns the API.\nThe deployment depends on the API.\nThe client changed requirement #4 yesterday.\nWe don't know whether the new requirement may invalidate the existing database schema.</textarea><button id="build">BUILD CASE</button></article>
-      <article><h1>Living Graph</h1><div id="graph" class="graph">Awaiting case state.</div></article>
-      <article><h1>Next Action / Proof</h1><pre id="receipt">No receipt yet.</pre></article>
+  <main class="shell">
+    <header class="hero">
+      <div><span class="eyebrow">MAAT // UNIVERSAL CASEGRAPH</span><h1>Turn chaos into an executable case.</h1></div>
+      <div id="runtime" class="status">CHECKING RUNTIME</div>
+    </header>
+
+    <section class="workspace">
+      <article class="panel input-panel">
+        <div class="panel-head"><h2>01 / Case Input</h2><span>untrusted source context</span></div>
+        <textarea id="input">Client needs a software prototype by Friday.
+Authentication isn't finished.
+Sam owns the API.
+The deployment depends on the API.
+The client changed requirement #4 yesterday.
+We don't know whether the new requirement may invalidate the existing database schema.</textarea>
+        <button id="build">BUILD CASE</button>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>02 / Command-to-Proof</h2><span id="run-id">no run</span></div>
+        <div id="pipeline" class="pipeline">INGEST → GRAPH → REASON → PLAN → VERIFY → RECEIPT</div>
+        <div id="summary" class="summary">Awaiting case state.</div>
+      </article>
+
+      <article class="panel wide">
+        <div class="panel-head"><h2>03 / Living Graph</h2><span>typed state</span></div>
+        <div id="graph" class="graph">No nodes yet.</div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>04 / Findings</h2><span>risk · gaps · blockers</span></div>
+        <div id="findings" class="stack">No findings yet.</div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>05 / Proof Receipt</h2><span>machine-readable evidence</span></div>
+        <pre id="receipt">No receipt yet.</pre>
+      </article>
     </section>
+
+    <footer><a href="/docs">API DOCS</a><span>MAAT v0.2.0 · deterministic core + Strands/Bedrock boundary</span></footer>
   </main>
   <script src="/static/app.js"></script>
 </body>

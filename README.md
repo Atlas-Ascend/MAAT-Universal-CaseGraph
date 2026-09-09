@@ -2,63 +2,51 @@
 
 **Turn chaos into an executable case.**
 
-MAAT is a hackathon-grade agentic system that transforms unstructured human situations—notes, requirements, messages, evidence, deadlines, actors, conflicts, and dependencies—into a living **Universal CaseGraph** with explicit next actions and proof receipts.
+MAAT transforms fragmented professional context into a typed, inspectable Universal CaseGraph and routes that state through evidence analysis, dependency planning, structural verification, and a proof receipt.
 
-## Mission
+## Production shape
 
-MAAT converts ambiguity into computable state:
+`messy context → graph → findings → plan → verify → receipt`
 
-`messy input → entities → events → evidence → contradictions → risks → tasks → dependencies → next-best action → receipt`
+The deterministic `/build-case` path is fully runnable without cloud credentials. The model-backed `/agent-analysis` route is an explicit Strands/Amazon Bedrock boundary and reports `503 not configured` until deployment authentication is supplied.
 
-## Competition Build
+## Live surfaces
 
-This repository is the standalone competition implementation of the Ghost Atlas Universal CaseGraph doctrine. It is intentionally scoped as a new, independently auditable build rather than a replacement for the larger Ghost Atlas estate.
+- `/` — judge-facing living CaseGraph interface
+- `/health` — health + deployed version
+- `/ready` — core readiness + agent-runtime state
+- `/build-case` — deterministic command-to-proof API
+- `/agent-analysis` — Strands/Bedrock analysis API
+- `/docs` — OpenAPI interface
 
-## Core Runtime
+## Repository control plane
 
-- Strands-based agent orchestration
-- Universal CaseGraph domain model
-- Evidence and contradiction analysis
-- Dependency-aware planning
-- Action routing
-- Proof receipts
-- Living graph UI
-- SECA-style verification gate
+- `build-truth/` — 16 canonical Build Truth artifacts
+- `docs/SDLC.md` — stage gates from definition to production proof
+- `docs/ARCHITECTURE.md` — system topology and typed handoffs
+- `docs/SECURITY.md` — trust boundaries and proof semantics
+- `docs/OPERATIONS.md` — deployment and failure runbook
+- `src/maat/` — implemented runtime
+- `tests/` — unit, API, and acceptance matrix
+- `examples/` — representative case fixtures
+- `scripts/preflight.py` — release invariant check
+- `render.yaml` — reproducible Render service definition
+- `proof/` — execution evidence only; no aspirational completion claims
 
-## Command-to-Proof Loop
+## Development
 
-1. **INGEST** — accept messy human context.
-2. **NORMALIZE** — identify actors, claims, requirements, evidence, events, and constraints.
-3. **GRAPH** — construct typed nodes and relationships.
-4. **REASON** — detect contradictions, missing evidence, blockers, and risk.
-5. **PLAN** — generate dependency-aware tasks and next-best action.
-6. **ACT** — invoke bounded tools or produce an executable handoff.
-7. **VERIFY** — test whether the claimed action/result is supported.
-8. **RECEIPT** — emit machine-readable proof.
+```bash
+python -m pip install -e '.[dev]'
+ruff check src tests scripts
+pytest -q
+python scripts/preflight.py
+uvicorn maat.api:app --reload
+```
 
-## Repository Map
+## Release law
 
-- `build-truth/` — 16 canonical Build Truth files
-- `docs/` — architecture, judging, disclosure, and demo documentation
-- `src/` — agent, graph, ingest, evidence, planning, tools, and API packages
-- `web/` — living CaseGraph interface
-- `tests/` — contract and acceptance tests
-- `proof/` — run receipts, graph snapshots, and verification evidence
+A feature is not deployed because code exists. Promotion requires: **CI PASS → reviewed merge SHA → Render LIVE → endpoint verification → recorded receipt**.
 
-## Hackathon Definition of Done
+## Current lifecycle
 
-A judge can press **BUILD CASE**, provide deliberately messy source material, and watch MAAT:
-
-- construct the graph,
-- identify contradictions,
-- expose missing evidence,
-- derive dependencies,
-- choose a next-best action,
-- execute or route that action,
-- and produce a proof receipt.
-
-## Status
-
-**ACTIVE — Hackathon 10 / competition build seed**
-
-See `build-truth/16-DEFINITION-OF-DONE.md` for the acceptance gate.
+**ACTIVE / IMPLEMENTED / PRODUCTION-HARDENING**
