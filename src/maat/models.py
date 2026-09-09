@@ -29,7 +29,7 @@ class CaseNode(BaseModel):
     confidence: float = Field(default=1.0, ge=0.0, le=1.0)
 
     @classmethod
-    def from_text(cls, node_type: NodeType, label: str, source_text: str) -> "CaseNode":
+    def from_text(cls, node_type: NodeType, label: str, source_text: str) -> CaseNode:
         raw = f"{node_type.value}:{label}:{source_text}".encode()
         return cls(id=sha256(raw).hexdigest()[:12], type=node_type, label=label, source_text=source_text)
 
