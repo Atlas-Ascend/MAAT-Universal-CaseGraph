@@ -1,0 +1,16 @@
+{
+  "event_id": "GA-PLUGIN-RUNTIME-CANARY-20260909T193035-0700",
+  "packet_id": "PKT-GA-PLUGIN-RUNTIME-001",
+  "correlation_id": "COR-GA-PLUGIN-RUNTIME-001",
+  "world_state_organ": "MAAT",
+  "thoth_provenance_commit": "d1d5ca8445ffb05d7609bbecc3d3e4348a95841f",
+  "state_delta": {
+    "plugin_fabric_runtime_canary": "VERIFIED_EXECUTED",
+    "providers_exercised": ["gmail","google_calendar","google_drive","base44","github"],
+    "bounded_write_provider": "github",
+    "seca_gate": "PASSED",
+    "medusa_gate": "PASSED"
+  },
+  "casegraph_update": "APPLIED",
+  "evidence_class": "WORLD_STATE_UPDATE_RECEIPT"
+}
