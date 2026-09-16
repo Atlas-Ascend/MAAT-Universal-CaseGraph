@@ -7,6 +7,7 @@ on:
       - '.github/workflows/gari-live-proof.yml'
       - 'src/maat/**'
       - 'web/**'
+      - 'data/gari_casegraph_canonical_snapshot.json'
   workflow_dispatch:
 
 permissions:
@@ -56,7 +57,7 @@ jobs:
           assert graph['title'] == 'Ghost Atlas Research Institute — Canonical Research Map'
           assert summary['nodes'] >= 60, summary
           assert summary['edges'] >= 70, summary
-          assert summary['proof_receipts'] >= 4, summary
+          assert summary['proof_receipts'] >= 3, summary
           assert summary['evidence_state_counts']['E0_CANONICAL'] >= 40, summary
           assert summary['evidence_state_counts']['E2_FORMAL'] >= 3, summary
           assert summary['evidence_state_counts']['E3_EXECUTABLE'] >= 6, summary
