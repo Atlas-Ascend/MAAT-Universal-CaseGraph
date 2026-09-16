@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from . import __version__
 from .agent import AgentUnavailableError, agent_runtime_configured, analyze_with_agent
+from .research import ResearchGraphRequest, build_research_graph, demo_research_graph
 from .service import build_case
 
 app = FastAPI(title="MAAT Universal CaseGraph", version=__version__)
@@ -48,6 +49,7 @@ def ready() -> dict:
         "status": "ok",
         "core": "ready",
         "agent_runtime": "configured" if agent_runtime_configured() else "not_configured",
+        "gari_casegraph_universal": "ready",
         "version": __version__,
     }
 
@@ -55,6 +57,16 @@ def ready() -> dict:
 @app.post("/build-case")
 def build_case_route(request: BuildRequest) -> dict:
     return build_case(request.text).model_dump(mode="json")
+
+
+@app.post("/gari/research-graph")
+def build_gari_research_graph(request: ResearchGraphRequest) -> dict:
+    return build_research_graph(request).model_dump(mode="json")
+
+
+@app.get("/gari/research-graph/demo")
+def gari_research_graph_demo() -> dict:
+    return demo_research_graph().model_dump(mode="json")
 
 
 @app.post("/agent-analysis")
@@ -68,6 +80,11 @@ def agent_analysis(request: BuildRequest) -> dict:
             status_code=502,
             detail="Model-backed analysis failed. The deterministic /build-case path remains available.",
         ) from exc
+
+
+@app.get("/gari")
+def gari_ui() -> FileResponse:
+    return FileResponse(WEB_DIR / "gari.html")
 
 
 @app.get("/")
