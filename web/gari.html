@@ -13,7 +13,7 @@
       <div>
         <div class="eyebrow">GHOST ATLAS RESEARCH INSTITUTE × MAAT UNIVERSAL CASEGRAPH</div>
         <h1>GARI CASEGRAPH UNIVERSAL</h1>
-        <p class="lede">Every research question, source, claim, hypothesis, branch finding, experiment, result, contradiction, proof receipt and memory relation — visible as one inspectable graph.</p>
+        <p class="lede">The Institute’s canonical research state — cognition canon, GARI branches, CCOS-Ω9, field research, INTELLICORE studies, experiments, evidence, proof receipts and next questions — visible as one inspectable graph.</p>
       </div>
       <div class="hero-actions">
         <div id="runtime" class="status">CHECKING RUNTIME…</div>
@@ -23,7 +23,8 @@
 
     <section class="gari-toolbar panel wide">
       <div class="toolbar-row">
-        <button id="demo" class="compact">LOAD GARI DEMO</button>
+        <button id="canonical" class="compact">LOAD LIVE GARI</button>
+        <button id="demo" class="compact secondary">BRAIN CYCLE DEMO</button>
         <button id="toggle-import" class="compact secondary">IMPORT RESEARCH JSON</button>
         <div class="field"><label>OBJECT TYPE</label><select id="type-filter"><option value="">ALL</option></select></div>
         <div class="field"><label>BRANCH</label><select id="branch-filter"><option value="">ALL</option></select></div>
@@ -31,7 +32,7 @@
         <div class="field"><label>STATUS</label><select id="status-filter"><option value="">ALL</option></select></div>
       </div>
       <div id="import-wrap" class="import-wrap hidden">
-        <textarea id="research-json" spellcheck="false" placeholder='Paste a ResearchGraphRequest JSON object with title, program_id, nodes[] and edges[]'></textarea>
+        <textarea id="research-json" spellcheck="false" placeholder='Paste a ResearchGraphRequest JSON object with title, program_id, objects[] and edges[]'></textarea>
         <button id="build-research">BUILD RESEARCH GRAPH</button>
       </div>
     </section>
@@ -43,13 +44,13 @@
         <div class="panel-head">
           <div>
             <h2>UNIVERSAL RESEARCH GRAPH</h2>
-            <span id="graph-title">No graph loaded</span>
+            <span id="graph-title">Loading canonical GARI research state…</span>
           </div>
           <span id="graph-id">—</span>
         </div>
         <div class="graph-stage" id="graph-stage">
           <svg id="research-graph" role="img" aria-label="GARI research graph visualization"></svg>
-          <div id="graph-empty" class="graph-empty">Load the GARI demo or import a research graph.</div>
+          <div id="graph-empty" class="graph-empty">Loading the canonical Institute research map…</div>
         </div>
       </article>
 
@@ -75,7 +76,7 @@
 
       <article class="panel wide">
         <div class="panel-head"><h2>GRAPH RECEIPT</h2><span>projection boundary</span></div>
-        <pre id="graph-receipt">No graph loaded.</pre>
+        <pre id="graph-receipt">Loading canonical research state…</pre>
       </article>
     </section>
 
@@ -85,5 +86,6 @@
     </footer>
   </main>
   <script src="/static/gari.js" defer></script>
+  <script src="/static/gari-live.js" defer></script>
 </body>
 </html>
