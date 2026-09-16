@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GARI CaseGraph Universal</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/gari.css">
+</head>
+<body>
+  <main class="shell gari-shell">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">GHOST ATLAS RESEARCH INSTITUTE × MAAT UNIVERSAL CASEGRAPH</div>
+        <h1>GARI CASEGRAPH UNIVERSAL</h1>
+        <p class="lede">Every research question, source, claim, hypothesis, branch finding, experiment, result, contradiction, proof receipt and memory relation — visible as one inspectable graph.</p>
+      </div>
+      <div class="hero-actions">
+        <div id="runtime" class="status">CHECKING RUNTIME…</div>
+        <a class="back-link" href="/">MAAT CASE MODE ↗</a>
+      </div>
+    </header>
+
+    <section class="gari-toolbar panel wide">
+      <div class="toolbar-row">
+        <button id="demo" class="compact">LOAD GARI DEMO</button>
+        <button id="toggle-import" class="compact secondary">IMPORT RESEARCH JSON</button>
+        <div class="field"><label>OBJECT TYPE</label><select id="type-filter"><option value="">ALL</option></select></div>
+        <div class="field"><label>BRANCH</label><select id="branch-filter"><option value="">ALL</option></select></div>
+        <div class="field"><label>EVIDENCE</label><select id="evidence-filter"><option value="">ALL</option></select></div>
+        <div class="field"><label>STATUS</label><select id="status-filter"><option value="">ALL</option></select></div>
+      </div>
+      <div id="import-wrap" class="import-wrap hidden">
+        <textarea id="research-json" spellcheck="false" placeholder='Paste a ResearchGraphRequest JSON object with title, program_id, nodes[] and edges[]'></textarea>
+        <button id="build-research">BUILD RESEARCH GRAPH</button>
+      </div>
+    </section>
+
+    <section id="summary" class="research-summary"></section>
+
+    <section class="workspace gari-workspace">
+      <article class="panel wide graph-panel">
+        <div class="panel-head">
+          <div>
+            <h2>UNIVERSAL RESEARCH GRAPH</h2>
+            <span id="graph-title">No graph loaded</span>
+          </div>
+          <span id="graph-id">—</span>
+        </div>
+        <div class="graph-stage" id="graph-stage">
+          <svg id="research-graph" role="img" aria-label="GARI research graph visualization"></svg>
+          <div id="graph-empty" class="graph-empty">Load the GARI demo or import a research graph.</div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>EVIDENCE LADDER</h2><span>E0 → E7</span></div>
+        <div id="evidence-ladder" class="ladder"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>RESEARCH STATE</h2><span>branch / status / proof</span></div>
+        <div id="research-state" class="state-grid"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>SELECTED OBJECT</h2><span>full traceable record</span></div>
+        <div id="selected-object" class="selected-object">Click any node to inspect its complete GARI object envelope.</div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head"><h2>RELATION LEDGER</h2><span>typed edges</span></div>
+        <div id="edge-ledger" class="edge-ledger"></div>
+      </article>
+
+      <article class="panel wide">
+        <div class="panel-head"><h2>GRAPH RECEIPT</h2><span>projection boundary</span></div>
+        <pre id="graph-receipt">No graph loaded.</pre>
+      </article>
+    </section>
+
+    <footer>
+      <span>GARI × LABCORE × THOTH × MAAT UNIVERSAL CASEGRAPH</span>
+      <span>THE GRAPH IS THE EXPLANATION · PROJECTION ≠ PROMOTION</span>
+    </footer>
+  </main>
+  <script src="/static/gari.js" defer></script>
+</body>
+</html>
