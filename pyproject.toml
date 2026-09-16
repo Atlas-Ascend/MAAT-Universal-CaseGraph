@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "maat-universal-casegraph"
-version = "0.2.0"
-description = "Agentic case reconstruction: messy context to executable graph and proof receipt"
+version = "0.3.0"
+description = "Agentic case reconstruction and universal GARI research visualization"
 requires-python = ">=3.11"
 dependencies = [
   "strands-agents>=1.0.0",
