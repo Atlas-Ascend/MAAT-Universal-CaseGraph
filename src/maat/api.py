@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from . import __version__
 from .agent import AgentUnavailableError, agent_runtime_configured, analyze_with_agent
+from .gari_source import build_canonical_gari_graph
 from .research import ResearchGraphRequest, build_research_graph, demo_research_graph
 from .service import build_case
 
@@ -50,6 +51,7 @@ def ready() -> dict:
         "core": "ready",
         "agent_runtime": "configured" if agent_runtime_configured() else "not_configured",
         "gari_casegraph_universal": "ready",
+        "gari_canonical_source": "configured",
         "version": __version__,
     }
 
@@ -67,6 +69,14 @@ def build_gari_research_graph(request: ResearchGraphRequest) -> dict:
 @app.get("/gari/research-graph/demo")
 def gari_research_graph_demo() -> dict:
     return demo_research_graph().model_dump(mode="json")
+
+
+@app.get("/gari/research-graph/canonical")
+def gari_research_graph_canonical() -> dict:
+    try:
+        return build_canonical_gari_graph().model_dump(mode="json")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Canonical GARI research source unavailable: {exc}") from exc
 
 
 @app.post("/agent-analysis")
