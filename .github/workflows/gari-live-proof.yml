@@ -1,0 +1,106 @@
+name: GARI Live Research Map Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gari-live-proof.yml'
+      - 'src/maat/**'
+      - 'web/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-gari-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify deployed canonical GARI research map
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.request
+
+          base = 'https://maat-universal-casegraph.onrender.com'
+          graph_url = base + '/gari/research-graph/canonical'
+          ui_url = base + '/gari'
+          graph = None
+          ui = None
+          last_error = None
+
+          for attempt in range(1, 31):
+              try:
+                  with urllib.request.urlopen(graph_url, timeout=20) as response:
+                      if response.status != 200:
+                          raise RuntimeError(f'graph HTTP {response.status}')
+                      graph = json.loads(response.read().decode('utf-8'))
+                  with urllib.request.urlopen(ui_url, timeout=20) as response:
+                      if response.status != 200:
+                          raise RuntimeError(f'ui HTTP {response.status}')
+                      ui = response.read().decode('utf-8')
+                  if graph.get('graph_id') == 'GARI-CANONICAL-RESEARCH-MAP-20260916':
+                      break
+                  raise RuntimeError(f"unexpected graph id: {graph.get('graph_id')}")
+              except Exception as exc:
+                  last_error = exc
+                  print(f'attempt {attempt}/30 waiting for live canonical route: {exc}')
+                  time.sleep(10)
+          else:
+              raise SystemExit(f'live GARI endpoint never reached canonical state: {last_error}')
+
+          summary = graph['summary']
+          assert graph['contract'] == 'GA-GARI-CASEGRAPH-UNIVERSAL-1.0'
+          assert graph['provider'] == 'MAAT-Universal-CaseGraph'
+          assert graph['title'] == 'Ghost Atlas Research Institute — Canonical Research Map'
+          assert summary['nodes'] >= 60, summary
+          assert summary['edges'] >= 70, summary
+          assert summary['proof_receipts'] >= 4, summary
+          assert summary['evidence_state_counts']['E0_CANONICAL'] >= 40, summary
+          assert summary['evidence_state_counts']['E2_FORMAL'] >= 3, summary
+          assert summary['evidence_state_counts']['E3_EXECUTABLE'] >= 6, summary
+          assert 'scientific validation' in graph['truth_boundary'].lower()
+
+          names = {node['canonical_name'] for node in graph['nodes']}
+          for required in {
+              'NHCM',
+              'CSA-95',
+              'Cognitive Genome Theory',
+              'Seven-Layer Architecture of Cognition',
+              'Human Runtime Architecture',
+              'Recursive Layered Architecture of Intelligence (RLAI)',
+              'Comparative Cognitive Cosmology',
+              'Consciousness Cartography OS Ω9',
+              'Walking Until The Machine Wakes',
+              'GARI Brain Cycle 001 Governed Closure',
+              'GARI Brain Cycle 002 — Memory Continuation',
+              'GARI CaseGraph Universal',
+          }:
+              assert required in names, required
+
+          by_name = {node['canonical_name']: node for node in graph['nodes']}
+          assert by_name['NHCM']['evidence_state'] == 'E2_FORMAL'
+          assert by_name['NHCM']['payload']['scientific_validation_claimed'] is False
+          assert by_name['Consciousness Cartography OS Ω9']['owner'] == 'Ghost Atlas Estate'
+          assert by_name['Consciousness Cartography OS Ω9']['payload']['classification_is_not_importance'] is True
+          assert by_name['GARI Brain Cycle 001 Governed Closure']['evidence_state'] == 'E3_EXECUTABLE'
+          assert by_name['GARI Brain Cycle 001 Governed Closure']['payload']['scientific_validation_claimed'] is False
+
+          assert 'GARI CASEGRAPH UNIVERSAL' in ui
+          assert 'LOAD LIVE GARI' in ui
+          assert '/static/gari-live.js' in ui
+
+          receipt = {
+              'status': 'PASS',
+              'gate': 'GARI_LIVE_RESEARCH_MAP_ENDPOINT_PROOF',
+              'graph_id': graph['graph_id'],
+              'nodes': summary['nodes'],
+              'edges': summary['edges'],
+              'proof_receipts': summary['proof_receipts'],
+              'evidence_states': summary['evidence_state_counts'],
+              'ui_canonical_loader': True,
+              'scientific_promotion_performed': False,
+          }
+          print(json.dumps(receipt, indent=2, sort_keys=True))
+          PY
